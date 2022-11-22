@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝印</title>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="index0.css">
+    <style>
+        #bg>img{
+            width: 100%;
+            height: 100%;
+            transform: scale(1);
+            transition: all 2s linear;
+        }
+        #bg:active>img{
+            transform: scale(1.5);
+            transition: all 2s linear;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="index0.js"> -->
+    <script type="text/javascript">
+
+        // 介绍1
+        $(function(){
+            //1.书写显示图片的定时操作
+            time = setInterval("showAd0()",3000);
+        });
+        
+        //2.书写显示图片的函数
+        function showAd0(){
+            //3.获取图片，并让其显示
+            $("#mypic1").show(1000);
+            $("#mypic1").slideDown(3000);
+            $("#mypic1").fadeIn(4000);
+            //4.清除显示图片定时操作
+            clearInterval(time);
+            //5.设置隐藏图片的定时操作
+            time = setInterval("hiddenAd0()",3000);
+        }
+        
+        function hiddenAd0(){
+            
+            $("#mypic1").hide();
+            $("#mypic1").slideUp(5000);
+            $("#mypic1").fadeOut(4000);
+            
+            clearInterval(time);
+        }
+
+        // 介绍2
+        function hideAD()
+        {
+            var img=document.getElementById("mypic2");
+            img.style.display="none";
+        }
+        function showAD()
+        {
+            var img=document.getElementById("mypic2");
+            img.style.display="block";
+            setTimeout("hideAD()",4000);
+        }
+        function init()
+        {
+            setTimeout("showAD()",6500);
+        }
+
+        // 介绍3
+        function hideAD1()
+        {
+            var img=document.getElementById("mypic3");
+            img.style.display="none";
+        }
+        function showAD1()
+        {
+            var img=document.getElementById("mypic3");
+            img.style.display="block";
+            setTimeout("hideAD1()",4000);
+        }
+        function init1()
+        {
+            setTimeout("showAD1()",12000);
+        }
+
+
+        // 提示键
+        // function hideAD2()
+        // {
+        //     var img=document.getElementById("mypic4");
+        //     img.style.display="none";
+        // }
+        function showAD2()
+        {
+            var img=document.getElementById("mypic4");
+            img.style.display="block";
+            // setTimeout("hideAD2()",3000);
+        }
+        function init2()
+        {
+            setTimeout("showAD2()",17000);
+        }
+
+        //最后的消失效果
+        $(document).ready(function() {
+            $("#bg").mousedown(function() {
+                var flag = false;
+                var stop;
+                stop = setTimeout(function() {//down 1s，才运行。
+                    flag = true;
+                    // alert("开始处理你的代码.");
+                    setTimeout("dieout()",1000);
+                }, 1000);
+                $("#bg").mouseup(function() {//鼠标up时，判断down了多久，不足一秒，不执行down的代码。
+                    if (!flag) {
+                        clearTimeout(stop);
+                    }
+                });
+            });
+        });
+
+        	/**bg逐渐消失*/
+	function dieout(){
+		 var oImg = document.getElementById("bg");  //获得图片obj
+         var iAlpha = 100;//用来定义默认的图片的透明度  
+         die(oImg); 
+         var oTimer = null;
+	}
+	//定时器  
+    function changeOpacity(obj, iTarget) {  
+    	var oTimer = null;
+        clearInterval(oTimer);  
+        //关闭定时器  
+        var iSpeed = 0;  
+        //速度  
+        if (iAlpha < iTarget) {  
+            iSpeed = 30;  
+        } else {  
+            iSpeed = -30;  
+        };  
+        oTimer = setInterval(function() {  
+            if (iAlpha == iTarget) {  
+                clearInterval(oTimer);  
+            } else {  
+                iAlpha += iSpeed;  
+                //设置透明度  
+                obj.style.opacity = iAlpha / 100;  
+                obj.style.filter = "alpha(opacity=" + iAlpha + ")";  
+            };  
+        }, 1000);  
+ 
+    }  
+    function die(oImg) {//逐渐消失  
+        iAlpha=100;  
+        oImg.style.opacity=1;//设置透明度  
+        oImg.style.filter='alpha(opacity=100)';//设置透明度 IE  
+        changeOpacity(oImg, 0);  
+    };  
+    function display(oImg){//逐渐显示  
+        iAlpha=0;  
+        oImg.style.opacity=0;//设置透明度  
+        oImg.style.filter='alpha(opacity=0)';//设置透明度 IE  
+        changeOpacity(oImg,100);  
+          
+    };  
+    </script>
+</head>
+<body>
+    <div class="fir" style="display:block;">
+        <img src="bu0.png" alt="" class="bufront">
+        <img src="bu1.png" alt="" class="buafter">o
+        
+        <img id="mypic1" src="intro1.png" class="intro1"  style="display:none;" > 
+        <img id="mypic2" onload="init()"  src="intro2.png" class="intro2" style="display: none;">
+        <img id="mypic3" onload="init1()" src="intro3.png" class="intro3" style="display: none;">
+        <img id="mypic4" onload="init2()" src="note.png" class="note" style="display: none;">
+        <div id="bg" style="display: inline-block;">
+            <img src="house.png" alt="" class="bumid">
+        </div>
+        
+    </div>    
+</body>
+</html>
